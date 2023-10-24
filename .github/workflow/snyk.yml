@@ -1,12 +1,12 @@
-name: Example workflow for Docker using Snyk 
+name: Example workflow for Maven using Snyk
 on: push
 jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Snyk to check Docker image for vulnerabilities
-      uses: snyk/actions/docker@main
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        image: Dockerfile.app
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
