@@ -1,0 +1,12 @@
+name: Example workflow for Docker using Snyk 
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Snyk to check Docker image for vulnerabilities
+      uses: snyk/actions/docker@main
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: Dockerfile.app
